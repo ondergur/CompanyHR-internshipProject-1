@@ -48,8 +48,6 @@ class CompanyController extends Controller
 //        $company->phone = $request->phone;
 //        $company->email = $request->email;
 //        $company->website = $request->website;
-
-
 //        $company->save();
 
         Company::create($request->all());

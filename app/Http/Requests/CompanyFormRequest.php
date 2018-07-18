@@ -24,7 +24,9 @@ class CompanyFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'address' => 'max:255'
         ];
     }
 }
