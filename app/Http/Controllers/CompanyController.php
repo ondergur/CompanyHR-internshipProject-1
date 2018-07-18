@@ -42,15 +42,21 @@ class CompanyController extends Controller
     public function store(CompanyFormRequest $request)
     {
         //
-//        $company = new Company;
-//        $company->name = $request->name;
-//        $company->address = $request->address;
-//        $company->phone = $request->phone;
-//        $company->email = $request->email;
-//        $company->website = $request->website;
-//        $company->save();
+        $company = new Company;
+        $company->name = $request->name;
+        $company->address = $request->address;
+        $company->phone = $request->phone;
+        $company->email = $request->email;
+        $company->website = $request->website;
 
-        Company::create($request->all());
+        $new_name = preg_replace('/\s+/', '',$company->name);
+        $photo_name = $new_name.time().'.'.$request->logo->getClientOriginalExtension();
+        $request->logo->move(public_path('company_logos'), $photo_name);
+        $company->logo =$photo_name;
+
+        $company->save();
+
+//        Company::create($request->all());
 
         return redirect('/companies/');
     }
