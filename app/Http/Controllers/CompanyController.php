@@ -18,7 +18,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate(10);
+        $companies = Company::paginate(4);
         return view('company.index', compact('companies'));
     }
 
@@ -56,7 +56,7 @@ class CompanyController extends Controller
 
         $company->save();
 
-//        Company::create($request->all());
+//      Company::create($request->all());
 
         return redirect('/companies/');
     }
@@ -69,8 +69,8 @@ class CompanyController extends Controller
     public function show($id)
     {
         //
-        $company = Company::find($id);
-        return view('cats.show', compact('company'));
+        $company = Company::findOrFail($id);
+        return view('company.show',compact('company'));
     }
 
     /**
