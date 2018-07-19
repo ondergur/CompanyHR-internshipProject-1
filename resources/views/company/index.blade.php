@@ -12,10 +12,10 @@
                             <img class="card-img-top" src="{{asset('company_logos/'.$company->logo)}}" alt="{{$company->logo.' logo'}}">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="{{url('companies/'.$company->id)}}">{{$company->name}}</a>
+                                    <a href="{{route('companies.show', $company)}}">{{$company->name}}</a>
                                 </h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="{{url('companies/'.$company->id)}}" class="btn btn-primary">Company Information</a>
+                                <a href="{{ route('companies.show', $company) }}" class="btn btn-primary">Company Information</a>
                             </div>
                         </div>
                     </div>
