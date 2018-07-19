@@ -3,18 +3,25 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Dashboard</div>
-
+            <div class="col-md-10">
+                <div class="card" style="">
+                    <img class="card-img-top" src="{{asset('company_logos/'.$company->logo)}}" alt="{{$company->logo.' logo'}}">
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        You are logged in!
+                        <h5 class="card-title">
+                            <a href="{{url('companies/'.$company->id)}}">{{$company->name}}</a>
+                        </h5>
+                        <p class="card-text">
+                            Address:    {{$company->address}}
+                        </p>
+                        <p class="card-text">
+                            Phone:    {{$company->phone}}
+                        </p>
+                        <p class="card-text">
+                            E-mail:    {{$company->email}}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{$company->website}}" class="btn btn-primary">Go to website</a>
                     </div>
                 </div>
             </div>
