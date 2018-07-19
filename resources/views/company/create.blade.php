@@ -18,9 +18,9 @@
 
                         {{Form::open(['route' => 'companies.store', 'files' => true]) }}
 
-                        <div class="form-group row">
+                        <div class="form-group row yeni">
                             {{Form::label('name', 'Name: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 {{Form::text('name', '', ['class' => 'form-control']) }}
                             </div>
                             {{--Name validation--}}
@@ -31,9 +31,9 @@
                             @endif
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row yeni">
                             {{Form::label('email', 'E-Mail Address: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 {{Form::text('email', '', ['class' => 'form-control']) }}
                             </div>
                             {{--Mail validation--}}
@@ -44,24 +44,24 @@
                             @endif
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row yeni">
                             {{Form::label('phone', 'Telephone Number: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 {{Form::text('phone', '', ['class' => 'form-control'])}}
                             </div>
                         </div>
 
 
-                        <div class="form-group row">
+                        <div class="form-group row yeni">
                             {{Form::label('website', 'Web Site: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 {{Form::text('website', '', ['class' => 'form-control'])}}
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row yeni">
                             {{Form::label('address', 'Address: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 {{Form::textarea('address', '', ['class' => 'form-control'])}}
                             </div>
                             {{--Address validation--}}
@@ -72,9 +72,9 @@
                             @endif
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row yeni">
                             {{Form::label('logo', 'Company Logo: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 {{Form::file('logo')}}
                             </div>
                             {{--Company logo validation--}}
@@ -85,10 +85,10 @@
                             @endif
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row yeni">
                             <div class="col-sm-3">
                             </div>
-                            <div class="col-sm-19">
+                            <div class="col-sm-7">
                                 {{Form::submit('Create Your Company!', ['class' => 'btn btn-primary'])}}
                             </div>
                         </div>

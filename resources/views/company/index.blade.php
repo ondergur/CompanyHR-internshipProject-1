@@ -27,6 +27,6 @@
 
         @endif
     <div style="padding-left: 40px; padding-top: 16px"> {{ $companies->links() }} </div>
-    <a href="{{ url('companies/create') }}" class="btn btn-primary" style="margin-left: 40px">Create New Company!</a>
+    <a href="{{ url('companies/create') }}" class="btn btn-success" style="margin-left: 40px">Create New Company!</a>
 
 @endsection
