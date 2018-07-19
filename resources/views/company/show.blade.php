@@ -22,6 +22,7 @@
                     </div>
                     <div class="card-footer">
                         <a href="{{$company->website}}" class="btn btn-primary">Go to website</a>
+                        <a href="{{route('companies.edit', $company)}}" class="btn btn-danger">Edit this Company</a>
                     </div>
                 </div>
             </div>
