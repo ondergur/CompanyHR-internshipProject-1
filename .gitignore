@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/company_logos
+/resources/views/company/_backup
+/routex.txt
 /storage/*.key
 /vendor
 /.idea
