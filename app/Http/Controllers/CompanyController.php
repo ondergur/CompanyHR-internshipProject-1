@@ -36,47 +36,42 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyFormRequest $request)
     {
-        //
-        $company = new Company;
-        $company->name = $request->name;
-        $company->address = $request->address;
-        $company->phone = $request->phone;
-        $company->email = $request->email;
-        $company->website = $request->website;
+        $attributes = $request->all();
 
-        $new_name = preg_replace('/\s+/', '',$company->name);
-        $photo_name = $new_name.time().'.'.$request->logo->getClientOriginalExtension();
-        $request->logo->move(public_path('company_logos'), $photo_name);
-        $company->logo =$photo_name;
+        if ($request->hasFile('logo')) {
+            $new_name = preg_replace('/\s+/', '', $request->name);
+            $file_extension = $request->logo->extension();
+            $file_name = $new_name . time() . '.' . $file_extension;
+            $request->logo->storeAs('company_logos', $file_name);
+            $attributes['logo'] = $file_name;
+        }
 
-        $company->save();
-
-//      Company::create($request->all());
-
+        Company::create($attributes);
         return redirect('/companies/');
     }
+
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
         $company = Company::findOrFail($id);
-        return view('company.show',compact('company'));
+        return view('company.show', compact('company'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -89,24 +84,14 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(CompanyFormRequest $request, $id)
     {
-        //
         $company = Company::find($id);
-//
-//        $company->name = $request->name;
-//        $company->address = $request->address;
-//        $company->phone = $request->phone;
-//        $company->email = $request->email;
-//        $company->website = $request->website;
-//        $company->save();
-
         $company->update($request->all());
-
         return redirect('/companies/');
 
     }
@@ -114,7 +99,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

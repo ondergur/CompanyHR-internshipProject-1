@@ -25,7 +25,7 @@ class CompanyFormRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'email' => 'required|email',
+            'email' => 'nullable','email',
             'address' => 'max:255',
             'logo' => 'dimensions:min_width=100,min_height=100'
         ];
