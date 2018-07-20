@@ -19,6 +19,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::paginate(4);
+
         return view('company.index', compact('companies'));
     }
 
@@ -29,8 +30,43 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
-        return view('company.create');
+        return $this->form(new Company);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Company $company
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Company $company)
+    {
+        return $this->form($company);
+    }
+
+    private function form(Company $company)
+    {
+        if ($company->exists) {
+            $route = ['companies.update', $company->id];
+            $method = 'put';
+
+        } else {
+            $route = ['companies.store'];
+            $method = 'post';
+        }
+
+        return view('company.form', compact('company', 'route', 'method'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Company $company
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Company $company)
+    {
+        return view('company.show', compact('company'));
     }
 
     /**
@@ -41,71 +77,58 @@ class CompanyController extends Controller
      */
     public function store(CompanyFormRequest $request)
     {
-        $attributes = $request->all();
+        $this->saveCompany($request, new Company);
 
-        if ($request->hasFile('logo')) {
-            $new_name = preg_replace('/\s+/', '', $request->name);
-            $file_extension = $request->logo->extension();
-            $file_name = $new_name . time() . '.' . $file_extension;
-            $request->logo->storeAs('company_logos', $file_name);
-            $attributes['logo'] = $file_name;
-        }
-
-        Company::create($attributes);
         return redirect('/companies/');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        $company = Company::findOrFail($id);
-        return view('company.show', compact('company'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        $company = Company::find($id);
-        return view('company.edit', compact('company'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param CompanyFormRequest $request
+     * @param Company $company
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyFormRequest $request, $id)
+    public function update(CompanyFormRequest $request, Company $company)
     {
-        $company = Company::find($id);
-        $company->update($request->all());
-        return redirect('/companies/');
+        $this->saveCompany($request, $company);
 
+        return redirect()->route('companies.index');
+
+    }
+
+    private function saveCompany(Request $request, Company $company)
+    {
+        $attributes = $request->all();
+
+        if ($request->hasFile('logo')) {
+            $new_name = preg_replace('/\s+/', '', $request->name);
+            $file_extension = $request->logo->extension();
+            $file_name = 'ipera__'  . $new_name. time() . '.' . $file_extension;
+            $request->logo->storeAs('company_logos', $file_name);
+            $attributes['logo'] = $file_name;
+        }
+
+        $company->fill($attributes);
+        $company->save();
+
+        return $company;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Company $company
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Company $company)
     {
-        //
-        $company = Company::find($id);
         $company->delete();
+
+        return route('companies.index');
     }
 }
