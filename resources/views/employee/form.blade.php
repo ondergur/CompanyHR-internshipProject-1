@@ -11,7 +11,7 @@
 
                         <div class="form-group row yeni">
                             {{Form::label('name', 'Name: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 {{Form::text('name', null, ['class' => 'form-control']) }}
                             </div>
                             {{--Name validation--}}
@@ -24,7 +24,7 @@
 
                         <div class="form-group row yeni">
                             {{Form::label('lastname', 'Last Name: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 {{Form::text('lastname', null, ['class' => 'form-control']) }}
                             </div>
                             {{--Name validation--}}
@@ -37,7 +37,7 @@
 
                         <div class="form-group row yeni">
                             {{Form::label('email', 'E-Mail Address: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 {{Form::text('email', null, ['class' => 'form-control']) }}
                             </div>
                             {{--Mail validation--}}
@@ -50,7 +50,7 @@
 
                         <div class="form-group row yeni">
                             {{Form::label('phone', 'Telephone Number: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 {{Form::text('phone', null, ['class' => 'form-control'])}}
                             </div>
                             @if($errors->has('phone'))
@@ -62,7 +62,7 @@
 
                         <div class="form-group row yeni">
                             {{Form::label('companyid', 'Company: ', ['class' => 'col-sm-3 col-form-label'])}}
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 {{Form::select('companyid', $company_names, ['class' => ''])}}
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                         <div class="form-group row yeni">
                             <div class="col-sm-3">
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 {{Form::submit('Save changes', ['class' => 'btn btn-success'])}}
                             </div>
                         </div>
