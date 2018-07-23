@@ -26,12 +26,12 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-left">
-                            <a href="{{route('companies.edit', $company)}}" class="btn btn-primary">Edit this
-                                Company</a>
+                            <a href="{{route('companies.edit', $company)}}" class="btn btn-primary">Edit Company</a>
                         </div>
                         <div class="float-right">
-                            <a href="{{route('companies.destroy', $company)}}"
-                               class="btn btn-danger justify-content-end">Delete this Company</a>
+                            {{Form::open([ 'method' => 'delete', 'route' => ['companies.destroy', $company]])}}
+                            {{Form::submit('Delete Company', array('class' => 'btn btn-danger justify-content-end')) }}
+                            {{Form::close() }}
                         </div>
                     </div>
                 </div>

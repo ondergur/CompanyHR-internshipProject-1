@@ -105,7 +105,7 @@ class CompanyController extends Controller
         if ($request->hasFile('logo')) {
             $new_name = preg_replace('/\s+/', '', $request->name);
             $file_extension = $request->logo->extension();
-            $file_name = 'ipera__'  . $new_name. time() . '.' . $file_extension;
+            $file_name = 'ipera__' . $new_name . time() . '.' . $file_extension;
             $request->logo->storeAs('company_logos', $file_name);
             $attributes['logo'] = $file_name;
         }
@@ -128,7 +128,6 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
-
-        return route('companies.index');
+        return redirect()->route('companies.index');
     }
 }
