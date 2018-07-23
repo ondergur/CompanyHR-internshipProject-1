@@ -17,7 +17,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::orderBy('created_at', 'desc')->paginate(10);
+        $employees = Employee::orderBy('created_at', 'desc')->paginate(12);
         return view('employee.index', compact('employees'));
     }
 
@@ -40,7 +40,7 @@ class EmployeeController extends Controller
     public function store(EmployeeFormRequest $request)
     {
         $this->saveEmployee($request, new Employee);
-        return redirect('/companies/');
+        return redirect('/employees/');
     }
 
     /**
@@ -49,9 +49,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
-        //
+        return view('employee.show', compact('employee'));
     }
 
     /**
@@ -60,9 +60,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
-        //
+        return $this->form($employee);
     }
 
     private function form(Employee $employee)
@@ -94,7 +94,9 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeFormRequest $request, Employee $employee)
     {
-        //
+        $this->saveEmployee($request, $employee);
+
+        return redirect()->route('employees.index');
     }
 
     private function saveEmployee(Request $request, Employee $employee)
