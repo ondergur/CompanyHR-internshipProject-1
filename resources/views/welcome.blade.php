@@ -85,7 +85,7 @@
 
         </div>
         <div class="title m-b-md">
-            Intership Project
+            Internship Project
         </div>
         <div class="links">
             <a href="https://github.com/ondergur/CompanyHR-internshipProject">GitHub Repo of The Project</a>
