@@ -14,6 +14,12 @@
         .list-group-item {
             height: 59px;
         }
+        .fa-trash-alt {
+            color: red;
+        }
+        .fa-edit{
+            color: green;
+        }
     </style>
     <div id="konteynir">
         {{--<h1 style="margin: 0px; padding-left: 40px; padding-bottom: 16px">Company Index</h1>--}}
@@ -59,6 +65,8 @@
                         <div class="col-md">Phone</div>
                         <div class="col-md">E-mail</div>
                         <div class="col-md">Website</div>
+                        <div class="col-md-1">Edit</div>
+                        <div class="col-md-1">Delete</div>
                     </div>
                 </li>
                 @foreach($companies as $company)
@@ -82,6 +90,8 @@
                             <div class="col-md scrollable-col">
                                 <a href="http://{{$company->website}}">{{$company->website}}</a>
                             </div>
+                            <div class="col-md-1"><a href="{{route('companies.edit', $company)}}"><i class="far fa-edit"></i></a> </div>
+                            <div class="col-md-1"><a href="{{route('companies.destroy',$company)}}"><i class="far fa-trash-alt"></i></a> </div>
                         </div>
                     </li>
                 @endforeach
