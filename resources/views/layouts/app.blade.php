@@ -18,11 +18,14 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{asset('css/firststyle.css')}}" rel="stylesheet">
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    {{--<link href="{{asset('css/firststyle.css')}}" rel="stylesheet">--}}
+    @yield('css')
+
 </head>
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -35,8 +38,13 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link {{Request::is('companies') ? 'active' : ''}}" href="{{route('companies.index')}}">Companies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{Request::is('employees') ? 'active' : ''}}" href="{{ route('employees.index') }}">Employees</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

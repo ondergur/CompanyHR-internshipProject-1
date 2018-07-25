@@ -8,8 +8,8 @@
 
 .row {
     margin: 0;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .card-img-top {
@@ -25,4 +25,17 @@
 
 .yeni {
     margin-bottom: 16px;
+}
+
+#konteynir {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#baslik {
+    padding-left: 0px;
+}
+
+#search-bar {
+    padding-right: 0px;
 }
