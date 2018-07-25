@@ -16,9 +16,13 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = Company::orderBy('created_at', 'desc')->paginate(4);
+        $companies = Company::orderBy('created_at', 'asc')
+            ->when($request->filled('searchbar'), function ($query) use ($request) {
+                $query->where('name','LIKE', "%{$request->input('searchbar')}%");
+            })->paginate(15);
+
 
         return view('company.index', compact('companies'));
     }
