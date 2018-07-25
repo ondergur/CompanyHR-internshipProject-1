@@ -20,7 +20,11 @@ class CompanyController extends Controller
     {
         $companies = Company::orderBy('created_at', 'asc')
             ->when($request->filled('searchbar'), function ($query) use ($request) {
-                $query->where('name','LIKE', "%{$request->input('searchbar')}%");
+                $query->where('name', 'LIKE', "%{$request->input('searchbar')}%")
+                    ->orWhere('address', 'LIKE', "%{$request->input('searchbar')}%")
+                    ->orWhere('phone', 'LIKE', "%{$request->input('searchbar')}%")
+                    ->orWhere('email', 'LIKE', "%{$request->input('searchbar')}%")
+                    ->orWhere('website', 'LIKE', "%{$request->input('searchbar')}%");
             })->paginate(15);
 
 
