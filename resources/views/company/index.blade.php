@@ -91,7 +91,11 @@
                                 <a href="http://{{$company->website}}">{{$company->website}}</a>
                             </div>
                             <div class="col-md-1"><a href="{{route('companies.edit', $company)}}"><i class="far fa-edit"></i></a> </div>
-                            <div class="col-md-1"><a href="{{route('companies.destroy',$company)}}"><i class="far fa-trash-alt"></i></a> </div>
+                            <div class="col-md-1">
+                                {{Form::open([ 'method' => 'delete', 'route' => ['companies.destroy', $company]])}}
+                                {{Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => '']) }}
+                                {{Form::close() }}
+                            </div>
                         </div>
                     </li>
                 @endforeach
