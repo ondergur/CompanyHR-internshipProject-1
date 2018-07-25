@@ -40,4 +40,9 @@ class Company extends Model
         'logo' => 'noimg.png',
     ];
 
+    public function employees()
+    {
+        return $this->hasMany(Employee::class,'companyid');
+    }
+
 }

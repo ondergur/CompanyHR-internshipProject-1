@@ -69,7 +69,7 @@
                                 {{$employee->phone}}
                             </div>
                             <div class="col-md scrollable-col">
-                                {{$company_names[$employee->companyid]}}
+                                {{$employee->company->name}}
                             </div>
                             <div class="col-md-1">
                                 <a href="{{route('employees.edit', $employee)}}"><i class="far fa-edit"></i></a>

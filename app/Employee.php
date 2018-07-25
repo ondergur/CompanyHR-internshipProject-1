@@ -14,4 +14,9 @@ class Employee extends Model
         'companyid',
         'logo',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'companyid');
+    }
 }

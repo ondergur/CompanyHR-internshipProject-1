@@ -19,7 +19,8 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $company_names = DB::table('companies')->pluck('name', 'id');
-        $employees = Employee::orderBy('created_at', 'asc')
+        $employees = Employee::with('company')
+            ->orderBy('created_at', 'asc')
             ->when($request->filled('searchbar'), function ($query) use ($request) {
                 $query->where('name', 'LIKE', "%{$request->input('searchbar')}%")
                     ->orWhere('lastname', 'LIKE', "%{$request->input('searchbar')}%")
