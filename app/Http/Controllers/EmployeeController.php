@@ -13,12 +13,22 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::orderBy('created_at', 'desc')->paginate(12);
-        return view('employee.index', compact('employees'));
+        $company_names = DB::table('companies')->pluck('name', 'id');
+        $employees = Employee::orderBy('created_at', 'asc')
+            ->when($request->filled('searchbar'), function ($query) use ($request) {
+                $query->where('name', 'LIKE', "%{$request->input('searchbar')}%")
+                    ->orWhere('lastname', 'LIKE', "%{$request->input('searchbar')}%")
+                    ->orWhere('email', 'LIKE', "%{$request->input('searchbar')}%")
+                    ->orWhere('phone', 'LIKE', "%{$request->input('searchbar')}%");
+            })
+            ->paginate(12);
+
+        return view('employee.index', compact('employees', 'company_names'));
     }
 
     /**
@@ -34,7 +44,7 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(EmployeeFormRequest $request)
@@ -46,7 +56,7 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function show(Employee $employee)
@@ -57,7 +67,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function edit(Employee $employee)
@@ -78,7 +88,7 @@ class EmployeeController extends Controller
 
         $companies = Company::all();
         $company_names = [];
-        foreach ($companies as $company){
+        foreach ($companies as $company) {
             $company_names[$company->id] = $company->name;
         }
 
@@ -88,8 +98,8 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param EmployeeFormRequest $request
+     * @param Employee $employee
      * @return \Illuminate\Http\Response
      */
     public function update(EmployeeFormRequest $request, Employee $employee)
@@ -111,8 +121,9 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Employee $employee
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Employee $employee)
     {
