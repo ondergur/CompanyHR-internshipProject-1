@@ -14,10 +14,12 @@
         .list-group-item {
             height: 59px;
         }
+
         .fa-trash-alt {
             color: red;
         }
-        .fa-edit{
+
+        .fa-edit {
             color: green;
         }
     </style>
@@ -25,13 +27,7 @@
         {{--<h1 style="margin: 0px; padding-left: 40px; padding-bottom: 16px">Company Index</h1>--}}
         <div class="row">
             <div class="col-md" id="baslik"><h1>Company Index</h1></div>
-            <div class="col-md"><a href="{{ url('companies/create') }}" class="btn btn-success ">New Company</a></div>
-            <div class="col-md" id="search-bar">
-                <form class="form-inline justify-content-end">
-                    <input class="form-control mr-sm-2" type="search" name="searchbar" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
+            <div class="col-md"><a href="{{ url('companies/create') }}" class="btn btn-success float-right">New Company</a></div>
         </div>
         @if(count($companies))
             {{--<div class="row">--}}
@@ -57,6 +53,32 @@
             {{--</div>--}}
 
             <ul class="list-group">
+                <li class="list-group-item">
+                    {{Form::open(['route' => 'companies.index', 'method' => 'GET']) }}
+                    <div class="row justify-content-between">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md">
+                            {{Form::text('namefilter', request('namefilter') , ['class' => 'form-control', 'placeholder' => 'Name Filter'])}}
+                        </div>
+                        <div class="col-md">
+                            {{Form::text('addressfilter', request('addressfilter'), ['class' => 'form-control', 'placeholder' => 'Address Filter'])}}
+                        </div>
+                        <div class="col-md">
+                            {{Form::text('phonefilter', request('phonefilter'), ['class' => 'form-control', 'placeholder' => 'Phone Filter'])}}
+                        </div>
+                        <div class="col-md">
+                            {{Form::text('emailfilter', request('emailfilter') , ['class' => 'form-control', 'placeholder' => 'E-mail Filter'])}}
+                        </div>
+                        <div class="col-md">
+                            {{Form::text('websitefilter', request('websitefilter'), ['class' => 'form-control', 'placeholder' => 'Website Filter'])}}
+                        </div>
+                        <div class="col-md-2">
+                            {{Form::submit('Filter', ['class' => 'btn btn-success my-2 my-sm-0'])}}
+                        </div>
+                    </div>
+                    {{Form::close()}}
+                </li>
                 <li class="list-group-item">
                     <div class="row justify-content-between">
                         <div class="col-md-1">Id</div>
@@ -90,7 +112,8 @@
                             <div class="col-md scrollable-col">
                                 <a href="http://{{$company->website}}">{{$company->website}}</a>
                             </div>
-                            <div class="col-md-1"><a href="{{route('companies.edit', $company)}}"><i class="far fa-edit"></i></a> </div>
+                            <div class="col-md-1"><a href="{{route('companies.edit', $company)}}"><i
+                                            class="far fa-edit"></i></a></div>
                             <div class="col-md-1">
                                 {{Form::open([ 'method' => 'delete', 'route' => ['companies.destroy', $company]])}}
                                 {{Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => '']) }}
