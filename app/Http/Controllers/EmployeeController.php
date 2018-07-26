@@ -20,16 +20,26 @@ class EmployeeController extends Controller
     {
         $company_names = DB::table('companies')->pluck('name', 'id');
         $employees = Employee::with('company')
-            ->orderBy('created_at', 'asc')
-            ->when($request->filled('searchbar'), function ($query) use ($request) {
-                $query->where('name', 'LIKE', "%{$request->input('searchbar')}%")
-                    ->orWhere('lastname', 'LIKE', "%{$request->input('searchbar')}%")
-                    ->orWhere('email', 'LIKE', "%{$request->input('searchbar')}%")
-                    ->orWhere('phone', 'LIKE', "%{$request->input('searchbar')}%");
+            ->orderBy('id', 'asc')
+            ->when($request->filled('namefilter'), function ($query) use ($request) {
+                $query->where('name', 'LIKE', "%{$request->input('namefilter')}%");
+            })
+            ->when($request->filled('lastnamefilter'), function ($query) use ($request) {
+                $query->where('lastname', 'LIKE', "%{$request->input('lastnamefilter')}%");
+            })
+            ->when($request->filled('emailfilter'), function ($query) use ($request) {
+                $query->where('email', 'LIKE', "%{$request->input('emailfilter')}%");
+            })
+            ->when($request->filled('phonefilter'), function ($query) use ($request) {
+                $query->where('phone', 'LIKE', "%{$request->input('phonefilter')}%");
+            })
+            ->when($request->filled('companyfilter'), function ($query) use ($request) {
+                $query->where('companyid', "{$request->input('companyfilter')}");
             })
             ->paginate(12);
 
-        return view('employee.index', compact('employees', 'company_names'));
+        return view('employee.index',
+            compact('employees', 'company_names'));
     }
 
     /**
