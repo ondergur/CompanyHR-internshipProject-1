@@ -27,7 +27,7 @@
     <div id="konteynir">
         <div class="row">
             <div class="col-md" id="baslik"><h1>Employee Index</h1></div>
-            <div class="col-md"><a href="{{route('employees.create')}}" class="btn btn-success ">New Employee</a></div>
+            <div class="col-md"><a href="{{route('employees.create')}}" class="btn btn-success float-right">New Employee</a></div>
         </div>
         @if(count($employees))
             <ul class="list-group">
