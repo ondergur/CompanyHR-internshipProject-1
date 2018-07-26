@@ -65,7 +65,7 @@
                         <div class="form-group row yeni">
                             {{Form::label('companyid', 'Company: ', ['class' => 'col-sm-3 col-form-label'])}}
                             <div class="col-sm-6">
-                                {{Form::select('companyid', $company_names, ['class' => ''])}}
+                                {{Form::select('companyid', $company_names,null,['class' => 'form-control'])}}
                             </div>
                         </div>
 
