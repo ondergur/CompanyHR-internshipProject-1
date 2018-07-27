@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function() {
 
+
+    Route::get('/companies/export', 'CompanyController@export');
     Route::resource('companies', 'CompanyController');
     Route::resource('employees', 'EmployeeController');
 

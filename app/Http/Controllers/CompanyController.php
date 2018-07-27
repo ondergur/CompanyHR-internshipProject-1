@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CompaniesExport;
 use App\Http\Requests\CompanyFormRequest;
 use DemeterChain\C;
 //use Faker\Provider\Company;
@@ -54,6 +55,11 @@ class CompanyController extends Controller
         return view('company.index', compact('companies', 'company_names'));
     }
 
+
+    public function export()
+    {
+        return \Excel::download(new CompaniesExport, 'companiesexcel.xlsx');
+    }
     /**
      * Show the form for creating a new resource.
      *

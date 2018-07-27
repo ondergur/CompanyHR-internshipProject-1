@@ -75,6 +75,7 @@
                         </div>
                         <div class="col-md-2">
                             {{Form::submit('Filter', ['class' => 'btn btn-success my-2 my-sm-0'])}}
+                            <button class="btn btn-danger">Export</button>
                         </div>
                     </div>
                     {{Form::close()}}
