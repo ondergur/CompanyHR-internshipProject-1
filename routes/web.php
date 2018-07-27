@@ -20,6 +20,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/companies/export', 'CompanyController@export');
     Route::resource('companies', 'CompanyController');
+    Route::get('/employees/datatable', 'EmployeeController@datatable')->name('employees.datatable');
+    Route::get('/employees/datatable/getdata','EmployeeController@getdata')->name('employees.getdata');
     Route::resource('employees', 'EmployeeController');
 
 });

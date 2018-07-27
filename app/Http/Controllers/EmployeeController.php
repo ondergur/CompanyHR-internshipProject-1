@@ -7,6 +7,7 @@ use App\Employee;
 use App\Http\Requests\EmployeeFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
 {
@@ -40,6 +41,18 @@ class EmployeeController extends Controller
 
         return view('employee.index',
             compact('employees', 'company_names'));
+    }
+
+    public function datatable()
+    {
+//        DataTables::eloquent(Employee::query())->make(true);
+        return view('employee.datatable');
+    }
+
+    public function getdata()
+    {
+        $employees = Employee::select('id','name','lastname','email', 'phone','companyid');
+        return DataTables::of($employees)->make(true);
     }
 
     /**
