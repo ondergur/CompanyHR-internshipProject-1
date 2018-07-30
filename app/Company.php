@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Company wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Company whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Company whereWebsite($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Employee[] $employees
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Company whereLogo($value)
  */
 class Company extends Model
 {

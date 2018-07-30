@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Employee;
+use App\Exports\EmployeesExport;
 use App\Http\Requests\EmployeeFormRequest;
+use function foo\func;
+use Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,8 +23,37 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $company_names = DB::table('companies')->pluck('name', 'id');
-        $employees = Employee::with('company')
-            ->orderBy('id', 'asc')
+        $employees = $this->filterData($request)
+            ->paginate(12);
+
+        return view('employee.index',
+            compact('employees', 'company_names'));
+    }
+
+    public function datatable()
+    {
+        return view('employee.datatable', [
+            'company_names' => DB::table('companies')->pluck('name', 'id'),
+        ]);
+    }
+
+    public function getdata(Request $request)
+    {
+        $employees = $this->filterData($request);
+        return DataTables::of($employees)
+            ->addColumn('action', function ($user) {
+                return '<a href="'.route('employees.edit', $user).'" class="btn btn-xs btn-primary"> Edit</a>'.
+                    Form::open([ 'method' => 'delete', 'route' => ['employees.destroy', $user]]).
+                    Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-xs btn-danger']).
+                    Form::close();
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->make(true);
+    }
+
+    public function filterData(Request $request)
+    {
+        return Employee::with('company')
             ->when($request->filled('namefilter'), function ($query) use ($request) {
                 $query->where('name', 'LIKE', "%{$request->input('namefilter')}%");
             })
@@ -36,23 +68,7 @@ class EmployeeController extends Controller
             })
             ->when($request->filled('companyfilter'), function ($query) use ($request) {
                 $query->where('companyid', "{$request->input('companyfilter')}");
-            })
-            ->paginate(12);
-
-        return view('employee.index',
-            compact('employees', 'company_names'));
-    }
-
-    public function datatable()
-    {
-//        DataTables::eloquent(Employee::query())->make(true);
-        return view('employee.datatable');
-    }
-
-    public function getdata()
-    {
-        $employees = Employee::select('id','name','lastname','email', 'phone','companyid');
-        return DataTables::of($employees)->make(true);
+            });
     }
 
     /**
@@ -155,5 +171,10 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index');
     }
 
+    public function export(Request $request)
+    {
+        return \Excel::download(new EmployeesExport, 'employeesexcel.xlsx');
+    }
 
 }
+
